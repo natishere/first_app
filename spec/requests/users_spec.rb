@@ -41,10 +41,10 @@ describe "Users" do
 	
 		describe "failure" do
 			it "should not sign a user in" do
-				visit sign_in_path
+				visit signin_path
 				fill_in :email, 	:with => ""
 				fill_in :password, 	:with => ""
-				click button
+				click_button
 				response.should have_selector("div.flash.error", :content => "Invalid")
 			end
 		end

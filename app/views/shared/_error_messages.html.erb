@@ -2,7 +2,7 @@
 	<div id="error_explanation" >
 		<h2>
 			<%= pluralize(@user.errors.count, 'error') %>
-			prevented this user from being saved:
+			prohibited this <%= object.class.to_s.underscore.humanize.downcase %> user from being saved:
 		</h2>	
 		<p>there were problems with the following fields:</p>
 		<ul>

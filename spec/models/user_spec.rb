@@ -75,7 +75,7 @@ describe User do
   
   end
   
-  describe "password encription" do
+  describe "password encryption" do
   
     before(:each) do
 	  @user = User.create!(@attr)
@@ -100,16 +100,32 @@ describe User do
 	
 	describe "authenticate_method" do
 		it "should return nil on email/password missmatch" do
-			wrong_password_user=User.authenticate(@user[:email], 'wrong_password')
-			wrong_password_user.should_be nil
+			wrong_password_user=User.authenticate(@attr[:email], 'wrong_password')
+			wrong_password_user.should be_nil
 		end
 		it "should return nil for no email match" do
-			no_email_user=User.authenticate('wrong_password', @user[:password] )
-			no_email_user.should_be nil
+			no_email_user=User.authenticate('wrong_password', @attr[:password] )
+			no_email_user.should be_nil
 		end
 		it "should return the user on email/password match" do
-			ret=User.authenticate(@user[:email], @user[:password] )
+			ret=User.authenticate(@attr[:email], @attr[:password] )
 			ret.should == @user
+		end
+	end
+	
+	describe "admin attribute" do
+		before(:each) do
+			@user = User.create!(@attr)
+		end
+		it "should respond to admin" do
+			@user.should respond_to(:admin)
+		end
+		it "should not be an admin by default" do
+			@user.should_not be_admin
+		end
+		it "should be convirtible to admin" do
+			@user.toggle!(:admin)
+			@user.should be_admin
 		end
 	end
 	
